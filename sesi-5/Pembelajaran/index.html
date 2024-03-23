@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #root {
+            background-color: antiquewhite;
+            color: black;
+            text-align: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <!-- isi konten -->
+    <div id="root">
+        <input type="text" placeholder="username" id="username-input">
+        <input type="password" placeholder="password" id="password-input">
+        <button onclick="onLogin()" id="loginButton">LOGIN</button>
+        <button onclick="onLogout()" id="logoutButton">LOGOUT</button>
+        <br>
+        <h1 id="admin">Hai Admin</h1>
+        <h1 id="basic">Hai User biasa</h1>
+    </div>
+
+    <script type="application/javascript">
+    let usernameInput = document.getElementById('username-input');
+    let passwordInput = document.getElementById('password-input');
+    let loginButton = document.getElementById('loginButton');
+    let logoutButton = document.getElementById('logoutButton');
+    
+    let admin = document.getElementById('admin');
+    let basic = document.getElementById('basic');
+
+    admin.style.display = "none";
+    basic.style.display = "none";
+    logoutButton.style.display = "none";
+
+    function onLogin() {
+        localStorage.setItem("username", usernameInput.value);
+        logoutButton.style.display = "block";
+
+        if (usernameInput.value == "admin" && passwordInput.value == "admin123") {
+            localStorage.setItem("role", "admin");
+            admin.style.display = "block";
+            basic.style.display = "none";
+            usernameInput.style.display = "none"
+            passwordInput.style.display = "none"
+            loginButton.style.display = "none"
+        } else {
+            localStorage.setItem("role", "basic");
+            basic.style.display = "block";
+            admin.style.display = "none";
+            usernameInput.style.display = "none"
+            passwordInput.style.display = "none"
+            loginButton.style.display = "none"
+        }
+    }
+
+    if (localStorage.getItem('username')) {
+        usernameInput.style.display = "none";
+        passwordInput.style.display = "none";
+        loginButton.style.display = "none";
+        logoutButton.style.display = "block";
+
+        if (localStorage.getItem('role') == "admin") {
+            admin.style.display = "block";
+            basic.style.display = "none";
+        } else {
+            basic.style.display = "block";
+            admin.style.display = "none";
+        }
+    }
+
+    function onLogout() {
+        localStorage.clear();
+        location.reload();
+    }
+    </script>
+</body>
+</html>
